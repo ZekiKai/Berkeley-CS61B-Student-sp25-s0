@@ -110,6 +110,8 @@ public class MachineStage implements AdventureStage {
      * Returns a new array where entry i is the max of
      * a[i] and b[i]. For example, if a = {1, -10, 3}
      * and b = {0, 20, 5}, this function will return {1, 20, 5}.
+     * However, with the mysteryMax(a[i],b[i]) returns the smaller between them,
+     * the result at the example above is the {0, -10, 3}
      */
     public static int[] arrayMax(int[] a, int[] b) {
         if (a.length != b.length) {
@@ -127,12 +129,13 @@ public class MachineStage implements AdventureStage {
 
     /**
      * Returns the sum of all elements in x.
+     * To be correct,  sum = mysteryAdd(sum, x[i]) instead of sum += mysteryAdd(sum, x[i])
      */
     public static int arraySum(int[] x) {
         int i = 0;
         int sum = 0;
         while (i < x.length) {
-            sum = sum + mysteryAdd(sum, x[i]);
+            sum = mysteryAdd(sum, x[i]);
             i = i + 1;
         }
         return sum;
@@ -144,8 +147,8 @@ public class MachineStage implements AdventureStage {
      * the elementwise max is {1, 20, 5}, which sums to 26.
      */
     public static int sumOfElementwiseMax(int[] a, int[] b) {
-        int[] maxes = arrayMax(a, b);
-        int sumofMaxes = arraySum(maxes);
+        int[] mines = arrayMax(a, b);
+        int sumofMaxes = arraySum(a) + arraySum(b) - arraySum(mines);
         return sumofMaxes;
     }
 }
